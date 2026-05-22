@@ -1,16 +1,23 @@
-// centralized color palette
+// Matches Comodo-booking web app (assets/styles/app.css)
 export default {
-  // primary branding colors
-  primary: '#703529', // blue safari
-  secondary: '#E0DDD5', // green
-  danger: '#ee6a6a', // red
+  timberwolf: '#DBD8CC',
+  tuatara: '#222221',
+  butterscotch: '#A98152',
+  butterscotchDark: '#8B6B3D',
+  cream: '#FFFEFC',
+  gradientEnd: '#C8C4B7',
+  borderLight: '#DDDDDD',
+  borderMuted: 'rgba(34, 34, 33, 0.12)',
+  textMuted: 'rgba(34, 34, 33, 0.7)',
+  danger: '#DC3545',
+  success: '#28A745',
 
-  // neutrals
-  background: '#DBD8CC', // off-white
-  card: '#FFFFFF', // white cards
-  border: '#C7C7CC', // gray borders
-
-  // accents
-  accent: '#703529', //
-  warning: '#A98152', //
+  // Legacy aliases used across screens
+  primary: '#A98152',
+  secondary: '#DBD8CC',
+  accent: '#A98152',
+  warning: '#8B6B3D',
+  background: '#DBD8CC',
+  card: '#FFFEFC',
+  border: '#DDDDDD',
 };

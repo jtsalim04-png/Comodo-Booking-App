@@ -19,7 +19,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate
-        loading={<View style={{ flex: 1, backgroundColor: '#F2F2F7' }} />}
+        loading={<View style={{ flex: 1, backgroundColor: '#DBD8CC' }} />}
         persistor={persistor}>
         <AppNav />
       </PersistGate>

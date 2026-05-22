@@ -1,34 +1,77 @@
 import { BASE_URL } from './config';
+import { fetchWithNetworkHint } from './client';
+import { API_PATHS } from './paths';
 
-export async function userLogin({ username, password }) {
-  const options = {
+const parseJsonResponse = async response => {
+  const text = await response.text();
+  if (!text) {
+    return null;
+  }
+  try {
+    return JSON.parse(text);
+  } catch {
+    return { message: text };
+  }
+};
+
+export async function registerUser({
+  email,
+  password,
+  firstName,
+  lastName,
+}) {
+  const response = await fetchWithNetworkHint(`${BASE_URL}${API_PATHS.register}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username, password }),
-  };
+    body: JSON.stringify({
+      email: email.trim(),
+      password,
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+    }),
+  });
 
-  const response = await fetch(`${BASE_URL}/api/login`, options);
-
-  let data;
-  try {
-    data = await response.json();
-  } catch (e) {
-    data = null;
-  }
-
-  console.log('Login HTTP status:', response.status);
-  console.log('Login response body:', data);
+  const data = await parseJsonResponse(response);
 
   if (response.ok) {
-    console.log('Login success response:', data);
     return data;
   }
 
   const message =
-    (data && (data.errors?.password || data.errors?.detail || data.detail)) ||
+    data?.message ||
+    data?.detail ||
+    `Registration failed (${response.status})`;
+  const error = new Error(message);
+  error.status = response.status;
+  error.data = data;
+  throw error;
+}
+
+export async function userLogin({ email, password }) {
+  const response = await fetchWithNetworkHint(`${BASE_URL}${API_PATHS.login}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const data = await parseJsonResponse(response);
+
+  if (response.ok) {
+    return data;
+  }
+
+  const message =
+    data?.message ||
+    (typeof data?.errors === 'string' ? data.errors : null) ||
+    data?.errors?.password ||
+    data?.errors?.email ||
+    data?.detail ||
     'Login failed';
   throw new Error(message);
 }

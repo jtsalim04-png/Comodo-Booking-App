@@ -15,9 +15,16 @@ export function* userLoginAsync(action) {
 
     const data = yield call(userLoginApi, action.payload);
 
+    if (!data?.token) {
+      throw new Error('Login succeeded but no token was returned from the server.');
+    }
+
     yield put({
       type: USER_LOGIN_COMPLETE,
-      payload: data,
+      payload: {
+        token: data.token,
+        user: data.user || { email: action.payload?.email },
+      },
     });
   } catch (error) {
     console.log('User login saga error: ', error);

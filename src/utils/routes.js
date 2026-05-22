@@ -1,9 +1,18 @@
 export default {
-  // Auth
   LOGIN: 'Login',
   REGISTER: 'Register',
 
-  // Main
-  HOME: 'Home',
-  PROFILE: 'Profile',
+  // User
+  USER_DASHBOARD: 'UserDashboard',
+  USER_EVENTS: 'UserEvents',
+  USER_EVENT_DETAIL: 'UserEventDetail',
+  USER_MY_TICKETS: 'UserMyTickets',
+  USER_TICKET_DETAIL: 'UserTicketDetail',
+  USER_PROFILE: 'UserProfile',
+
+  // Admin
+  ADMIN_DASHBOARD: 'AdminDashboard',
+  ADMIN_EVENTS: 'AdminEvents',
+  ADMIN_EVENT_FORM: 'AdminEventForm',
+  ADMIN_USERS: 'AdminUsers',
 };

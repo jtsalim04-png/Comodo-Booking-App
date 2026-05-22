@@ -1,5 +1,23 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+## Comodo website API (local dev)
+
+The app loads **events, login, and tickets** from your **running Comodo website** Symfony server (not a separate clone).
+
+| Port | What |
+|------|------|
+| **8000** | Comodo website API (`symfony server:start` in **ComodoWebsite**) — `src/app/api/config.js` |
+| **8081** | Database — used by Symfony only, not by this app |
+| **8082** | Metro (JS bundle) — `npm start`; Android is wired to this port in `metro.config.js` + `android/gradle.properties` |
+
+1. Start your **ComodoWebsite** project on port **8000** (`symfony server:start`). After API changes run `php bin/console cache:clear` in that folder.
+2. Terminal A: `npm start` (Metro on **8082**).
+3. Terminal B: `npm run android` (runs `adb reverse` for ports **8000** and **8082**, then installs the app).
+
+Wi‑Fi only (no USB): set `DEV_API_HOST_OVERRIDE` in `src/app/api/config.js` to your PC’s LAN IP.
+
+See [docs/ALIGNMENT.md](docs/ALIGNMENT.md) for web ↔ mobile parity.
+
 # Getting Started
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.

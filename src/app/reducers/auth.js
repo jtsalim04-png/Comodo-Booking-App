@@ -13,7 +13,6 @@ const INITIALSTATE = {
 };
 
 export default function reducer(state = INITIALSTATE, action) {
-  console.log(action.type);
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return {
